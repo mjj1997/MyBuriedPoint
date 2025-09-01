@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.21)
 # manual dependency management
 
 # Only set the cxx_standard if it is not set by someone else
-if (NOT DEFINED CMAKE_CXX_STANDARD)
+if(NOT DEFINED CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 23)
 endif()
 
@@ -25,14 +25,13 @@ project(
 include(cmake/PreventInSourceBuilds.cmake)
 include(ProjectOptions.cmake)
 
+myburiedpoint_setup_options()
 
-MyBuriedPoint_setup_options()
-
-MyBuriedPoint_global_options()
+myburiedpoint_global_options()
 include(Dependencies.cmake)
-MyBuriedPoint_setup_dependencies()
+myburiedpoint_setup_dependencies()
 
-MyBuriedPoint_local_options()
+myburiedpoint_local_options()
 
 # don't know if this should be set globally from here or not...
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
@@ -73,10 +72,9 @@ if(BUILD_TESTING)
   add_subdirectory(test)
 endif()
 
-
 if(MyBuriedPoint_BUILD_FUZZ_TESTS)
   message(AUTHOR_WARNING "Building Fuzz Tests, using fuzzing sanitizer https://www.llvm.org/docs/LibFuzzer.html")
-  if (NOT MyBuriedPoint_ENABLE_SANITIZER_ADDRESS AND NOT MyBuriedPoint_ENABLE_SANITIZER_THREAD)
+  if(NOT MyBuriedPoint_ENABLE_SANITIZER_ADDRESS AND NOT MyBuriedPoint_ENABLE_SANITIZER_THREAD)
     message(WARNING "You need asan or tsan enabled for meaningful fuzz testing")
   endif()
   add_subdirectory(fuzz_test)
@@ -92,7 +90,7 @@ if(MSVC)
 endif()
 
 # set the startup project for the "play" button in MSVC
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT intro)
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT tests)
 
 if(CMAKE_SKIP_INSTALL_RULES)
   return()
@@ -102,9 +100,9 @@ include(cmake/PackageProject.cmake)
 
 # Add other targets that you want installed here, by default we just package the one executable
 # we know we want to ship
-MyBuriedPoint_package_project(
+myburiedpoint_package_project(
   TARGETS
-  intro
+  tests
   MyBuriedPoint_options
   MyBuriedPoint_warnings
   # FIXME: this does not work! CK
