@@ -12,4 +12,8 @@ function(MyBuriedPoint_setup_dependencies)
     cpmaddpackage("gh:catchorg/Catch2@3.8.1")
   endif()
 
+  if(NOT TARGET spdlog::spdlog)
+    cpmaddpackage("gh:gabime/spdlog@1.15.3")
+  endif()
+
 endfunction()
