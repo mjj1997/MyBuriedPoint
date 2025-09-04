@@ -2,7 +2,7 @@
 
 #include <MyBuriedPoint/buried_point.h>
 
-TEST_CASE("test", "[test]")
+TEST_CASE("test", "[logger]")
 {
-    test();
+    const BuriedPoint buriedPoint{ "G:/dev/cpp/MyBuriedPoint/out" };
 }
