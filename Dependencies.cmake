@@ -28,4 +28,32 @@ function(MyBuriedPoint_setup_dependencies)
       "SPDLOG_FMT_EXTERNAL ON")
   endif()
 
+  if(NOT TARGET SQLite::SQLite3)
+    cpmaddpackage(
+      NAME
+      SQLite3
+      VERSION
+      3.50.4
+      URL
+      "https://www.sqlite.org/2025/sqlite-amalgamation-3500400.zip")
+    if(SQLite3_ADDED)
+      add_library(SQLite3 STATIC ${SQLite3_SOURCE_DIR}/sqlite3.c ${SQLite3_SOURCE_DIR}/sqlite3.h
+                                 ${SQLite3_SOURCE_DIR}/sqlite3ext.h)
+      add_library(SQLite::SQLite3 ALIAS SQLite3)
+      target_include_directories(SQLite3 PUBLIC ${SQLite3_SOURCE_DIR})
+      install(
+        TARGETS SQLite3
+        EXPORT SqliteOrmTargets
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib
+        RUNTIME DESTINATION bin
+        INCLUDES
+        DESTINATION include)
+    endif()
+  endif()
+
+  if(NOT TARGET sqlite_orm::sqlite_orm)
+    cpmaddpackage("gh:fnc12/sqlite_orm@1.9.1")
+  endif()
+
 endfunction()
