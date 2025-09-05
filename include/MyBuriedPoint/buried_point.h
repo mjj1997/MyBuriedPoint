@@ -4,6 +4,10 @@
 #include <memory>
 #include <string_view>
 
+namespace spdlog {
+class logger;
+}
+
 class BuriedPoint
 {
 public:
