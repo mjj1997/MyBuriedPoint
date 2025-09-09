@@ -4,5 +4,5 @@
 
 TEST_CASE("test", "[logger]")
 {
-    const BuriedPoint buriedPoint{ "G:/dev/cpp/MyBuriedPoint/out" };
+    const BuriedPoint buriedPoint{ "./log" };
 }

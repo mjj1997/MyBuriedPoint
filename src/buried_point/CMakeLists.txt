@@ -1,12 +1,18 @@
 include(GenerateExportHeader)
 
-add_library(buried_point buried_point.cpp)
+add_library(buried_point)
 
 add_library(MyBuriedPoint::buried_point ALIAS buried_point)
 
+target_sources(buried_point PRIVATE buried_point.cpp database/database.cpp)
+
 target_link_libraries(buried_point PRIVATE MyBuriedPoint_options MyBuriedPoint_warnings)
 
-target_link_system_libraries(buried_point PRIVATE spdlog::spdlog)
+target_link_system_libraries(
+  buried_point
+  PRIVATE
+  spdlog::spdlog
+  sqlite_orm::sqlite_orm)
 
 target_include_directories(buried_point ${WARNING_GUARD} PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
                                                                 $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>)
