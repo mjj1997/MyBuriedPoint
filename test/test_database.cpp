@@ -2,6 +2,7 @@
 
 #include "../src/buried_point/database/database.h"
 
+#include <cstddef>
 #include <cstdint>
 #include <filesystem>
 #include <vector>
@@ -26,7 +27,7 @@ TEST_CASE("DatabaseTest", "[database]")
                                                  .content = std::string{ "hello" } };
         database.insert(data);
         dataset = database.query(limit);
-        REQUIRE(dataset.size() == i);
+        REQUIRE(dataset.size() == static_cast<std::size_t>(i));
     }
 
     // test remove(const Data&)
