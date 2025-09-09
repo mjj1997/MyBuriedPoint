@@ -19,7 +19,10 @@ endif()
 
 include(${Catch2_SOURCE_DIR}/extras/Catch.cmake)
 
-add_executable(tests tests.cpp)
+add_executable(tests)
+
+target_sources(tests PRIVATE test_logger.cpp test_database.cpp)
+
 target_link_libraries(
   tests
   PRIVATE MyBuriedPoint::MyBuriedPoint_warnings
