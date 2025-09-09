@@ -40,7 +40,7 @@ function(MyBuriedPoint_setup_dependencies)
       add_library(SQLite3 STATIC ${SQLite3_SOURCE_DIR}/sqlite3.c ${SQLite3_SOURCE_DIR}/sqlite3.h
                                  ${SQLite3_SOURCE_DIR}/sqlite3ext.h)
       add_library(SQLite::SQLite3 ALIAS SQLite3)
-      target_include_directories(SQLite3 PUBLIC ${SQLite3_SOURCE_DIR})
+      target_include_directories(SQLite3 PUBLIC $<BUILD_INTERFACE:${SQLite3_SOURCE_DIR}> $<INSTALL_INTERFACE:include>)
       install(
         TARGETS SQLite3
         EXPORT SqliteOrmTargets
